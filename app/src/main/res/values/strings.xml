@@ -24,6 +24,16 @@
     <string name="scores_header">Scores</string>
 
     <string name="settings_header">Settings</string>
+    <string name="settings_name">Name:</string>
+    <string name="settings_name_hint">Enter your name</string>
+    <string name="settings_help">How many times can you ask for help</string>
+    <string name="settings_add_friend">Add friend</string>
+    <string name="settings_add_friend_hint">Enter your friend\'s mail</string>
 
     <string name="credits_header">Credits</string>
+    <string name="credits_game_name">Who wants to be a millionaire</string>
+    <string name="credits_authors">Authors:</string>
+    <string name="credits_author1">Adrián Muñera Saez\n(@inf.upv.es)</string>
+    <string name="credits_author2">Adrián Martínez Carreres\n(admarcar@inf.upv.es)</string>
+
 </resources>
