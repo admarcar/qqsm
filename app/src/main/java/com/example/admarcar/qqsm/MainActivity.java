@@ -15,7 +15,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void callback_main(View view){
         Intent intent = null;
-        intent = new Intent(this,PlayActivity.class);
+        switch (view.getId()){
+            case R.id.main_play_button:
+                intent = new Intent(this,PlayActivity.class);
+                break;
+            case R.id.main_score_button:
+                intent = new Intent(this,ScoresActivity.class);
+                break;
+            case R.id.main_settings_button:
+                intent = new Intent(this,SettingsActivity.class);
+                break;
+            case R.id.main_credits_button:
+                intent = new Intent(this,CreditsActivity.class);
+                break;
+        }
+
         startActivity(intent);
     }
 }

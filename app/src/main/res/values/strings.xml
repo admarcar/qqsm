@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">qqsm</string>
+
+    <string name="main_header">Who wants to be a millionaire</string>
+    <string name="main_welcome">Welcome to Who wants to be a millionaire</string>
+    <string name="main_play">Play</string>
+    <string name="main_scores">Scores</string>
+    <string name="main_settings">Settings</string>
+    <string name="main_credits">Credits</string>
+
+    <string name="play_header">Play</string>
     <string name="play_playfor">Play for: </string>
     <string name="play_question">Question: </string>
     <string name="play_losingtitle">Oh! You have lost.</string>
@@ -11,4 +20,10 @@
     <string name="play_menu_call_title">Call</string>
     <string name="play_menu_fifty_title">Fifty</string>
     <string name="play_menu_audience_title">Audience</string>
+
+    <string name="scores_header">Scores</string>
+
+    <string name="settings_header">Settings</string>
+
+    <string name="credits_header">Credits</string>
 </resources>
