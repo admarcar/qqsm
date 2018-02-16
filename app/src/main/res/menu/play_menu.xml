@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/play_menu_call"
+        android:title="@string/play_menu_call_title"
+        android:icon="@android:drawable/stat_sys_phone_call"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/play_menu_fifty"
+        android:title="@string/play_menu_fifty_title"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/play_menu_audience"
+        android:title="@string/play_menu_audience_title"
+        android:icon="@android:drawable/ic_menu_help"
+        app:showAsAction="always" />
+</menu>
