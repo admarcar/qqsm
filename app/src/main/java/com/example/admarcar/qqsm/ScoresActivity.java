@@ -57,19 +57,23 @@ public class ScoresActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(final MenuItem item){
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScoresActivity.this);
-        builder.setMessage(R.string.scores_message);
-        builder.setPositiveButton(R.string.scores_yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                LocalList.clear();
-                LocalAdaptador.notifyDataSetChanged();
+        switch (item.getItemId()) {
+            case R.id.score_delete:
+                AlertDialog.Builder builder = new AlertDialog.Builder(ScoresActivity.this);
+                builder.setMessage(R.string.scores_message);
+                builder.setPositiveButton(R.string.scores_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LocalList.clear();
+                        LocalAdaptador.notifyDataSetChanged();
 
-            }
-        });
-        builder.setNegativeButton(R.string.scores_no, null);
-        builder.create().show();
-        return true;
+                    }
+                });
+                builder.setNegativeButton(R.string.scores_no, null);
+                builder.create().show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public ArrayList<People_score> getLocalScores(){
