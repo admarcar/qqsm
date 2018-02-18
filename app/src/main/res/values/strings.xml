@@ -33,7 +33,17 @@
     <string name="credits_header">Credits</string>
     <string name="credits_game_name">Who wants to be a millionaire</string>
     <string name="credits_authors">Authors:</string>
-    <string name="credits_author1">Adrián Muñera Saez\n(@inf.upv.es)</string>
+    <string name="credits_author1">Adrián Munera Sánchez\n(admusan@inf.upv.es)</string>
     <string name="credits_author2">Adrián Martínez Carreres\n(admarcar@inf.upv.es)</string>
+
+    <string name="scores_local">Local</string>
+    <string name="scores_friends">Friends</string>
+    <string name="scores_delete">Delete scores</string>
+    <string name="scores_message">Are you sure that you want to delete ALL scores?</string>
+    <string name="scores_yes">Yes</string>
+    <string name="scores_no">No</string>
+
+
+
 
 </resources>
