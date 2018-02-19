@@ -1,9 +1,12 @@
 package com.example.admarcar.qqsm;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,15 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import extra.Question;
+import extra.SQLhelper;
 
 public class PlayActivity extends AppCompatActivity {
 
-    private int question_number = 0;
+    private int question_number;
     private int prizes[] = {100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000};
     List<Question> questions;
     Question question;
@@ -28,9 +37,18 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-
-        questions = generateQuestionList();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        question_number = prefs.getInt("question_number", 0);
+        questions = readQuestionList();
         fill_question();
+    }
+
+    protected void onPause(){
+        super.onPause();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("question_number", question_number);
+        editor.apply();
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -90,10 +108,13 @@ public class PlayActivity extends AppCompatActivity {
             int money = 0;
             if(question_number <= 10 && question_number > 4) money = prizes[4];
             else if(question_number <= 15 && question_number > 10) money = prizes[9];
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            SQLhelper.getInstance(this).putScore(prefs.getString("username", ""),money);
             builder.setMessage(getString(R.string.play_losingmessage, Integer.toString(question_number+1), Integer.toString(money)));
             builder.setNegativeButton(R.string.play_losingback, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    question_number = 0;
                     PlayActivity.this.finish();
                 }
             });
@@ -118,19 +139,19 @@ public class PlayActivity extends AppCompatActivity {
         TextView button1 = findViewById(R.id.play_option1);
         button1.setText(questions.get(question_number).getAnswer1());
         button1.setEnabled(true);
-        button1.setBackgroundColor(0);
+        //button1.setBackgroundColor(0);
         TextView button2 = findViewById(R.id.play_option2);
         button2.setText(questions.get(question_number).getAnswer2());
         button2.setEnabled(true);
-        button2.setBackgroundColor(0);
+        //button2.setBackgroundColor(0);
         TextView button3 = findViewById(R.id.play_option3);
         button3.setText(questions.get(question_number).getAnswer3());
         button3.setEnabled(true);
-        button3.setBackgroundColor(0);
+        //button3.setBackgroundColor(0);
         TextView button4 = findViewById(R.id.play_option4);
         button4.setText(questions.get(question_number).getAnswer4());
         button4.setEnabled(true);
-        button4.setBackgroundColor(0);
+        //button4.setBackgroundColor(0);
         question = questions.get(question_number);
     }
 
@@ -142,7 +163,7 @@ public class PlayActivity extends AppCompatActivity {
             case "3": button = findViewById(R.id.play_option3); break;
             case "4": button = findViewById(R.id.play_option4); break;
         }
-        button.setBackgroundColor(23);
+        //button.setBackgroundColor(23);
     }
 
     public void disable_buttons(String b1, String b2){
@@ -162,6 +183,46 @@ public class PlayActivity extends AppCompatActivity {
         }
         button1.setEnabled(false);
         button2.setEnabled(false);
+    }
+
+    public List<Question> readQuestionList(){
+        Log.d("hola", "adios");
+        int question_number = 1;
+        List<Question> list = new ArrayList<Question>();
+        Question q;
+        try{
+            XmlPullParser parser = getResources().getXml(R.xml.questions);
+            int event = parser.getEventType();
+            while(XmlPullParser.END_DOCUMENT != event){
+                switch (event){
+                    case XmlPullParser.START_TAG:
+                        if(!"question".equals(parser.getName())) break;
+                        String answer1 = parser.getAttributeValue(0);
+                        String answer2 = parser.getAttributeValue(1);
+                        String answer3 = parser.getAttributeValue(2);
+                        String answer4 = parser.getAttributeValue(3);
+                        String audience = parser.getAttributeValue(4);
+                        String fifty1 = parser.getAttributeValue(5);
+                        String fifty2 = parser.getAttributeValue(6);
+                        String number = parser.getAttributeValue(7);
+                        String phone = parser.getAttributeValue(8);
+                        String right = parser.getAttributeValue(9);
+                        String text = parser.getAttributeValue(10);
+                        q = new Question(Integer.toString(question_number++), text, answer1, answer2, answer3, answer4, right,
+                                audience, phone, fifty1, fifty2);
+                        list.add(q);
+
+                        break;
+                    case XmlPullParser.TEXT:
+                        break;
+                }
+                parser.next();
+                event = parser.getEventType();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public List<Question> generateQuestionList() {

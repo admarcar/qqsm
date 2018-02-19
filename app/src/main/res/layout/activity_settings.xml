@@ -26,7 +26,7 @@
             android:text="@string/settings_name" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/settings_name_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,7 +55,7 @@
             android:text="@string/settings_help" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/settings_hints_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/settings_hints_array"

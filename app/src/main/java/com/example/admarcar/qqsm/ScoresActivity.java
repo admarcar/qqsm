@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import extra.Adaptador;
 import extra.People_score;
+import extra.SQLhelper;
 
 public class ScoresActivity extends AppCompatActivity {
 
@@ -40,7 +41,8 @@ public class ScoresActivity extends AppCompatActivity {
         spec.setContent(R.id.tab2);
         host.addTab(spec);
 
-        LocalList = getLocalScores();
+        //LocalList = getLocalScores();
+        LocalList = SQLhelper.getInstance(this).getScores();
         LocalAdaptador = new Adaptador(this, R.layout.scores_list, LocalList);
         ListView listView = findViewById(R.id.score_listview_local);
         listView.setAdapter(LocalAdaptador);
@@ -65,6 +67,7 @@ public class ScoresActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         LocalList.clear();
+                        SQLhelper.getInstance(ScoresActivity.this).removeScores();
                         LocalAdaptador.notifyDataSetChanged();
 
                     }

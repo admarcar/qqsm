@@ -4,7 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Adrian\Documents\Android clase\qqsm\app\app.iml" filepath="C:\Users\Adrian\Documents\Android clase\qqsm\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/qqsm.iml" filepath="$PROJECT_DIR$/.idea/qqsm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qqsm.iml" filepath="$PROJECT_DIR$/qqsm.iml" />
+      <module fileurl="file://C:\Users\admarcar\AndroidStudioProjects\qqsm\.idea\qqsm.iml" filepath="C:\Users\admarcar\AndroidStudioProjects\qqsm\.idea\qqsm.iml" />
       <module fileurl="file://C:\Users\Adrian\Documents\Android clase\qqsm\qqsm.iml" filepath="C:\Users\Adrian\Documents\Android clase\qqsm\qqsm.iml" />
     </modules>
   </component>
