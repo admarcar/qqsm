@@ -17,7 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
         EditText edit_name = findViewById(R.id.settings_name_edit_text);
         Spinner spinner = findViewById(R.id.settings_hints_spinner);
         edit_name.setText(prefs.getString("username", ""));
-        spinner.setSelection(prefs.getInt("hints_quantity_pos", 0));
+        spinner.setSelection(prefs.getInt("hints_quantity_pos", 3));
     }
 
     public void onPause(){

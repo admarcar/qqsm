@@ -9,12 +9,17 @@
     <string name="main_credits">Credits</string>
 
     <string name="play_header">Play</string>
-    <string name="play_playfor">Play for: </string>
+    <string name="play_playfor">Play for:  </string>
+    <string name="play_remaining_hints">Remaining hints:  </string>
     <string name="play_question">Question: </string>
     <string name="play_losingtitle">Oh! You have lost.</string>
     <string name="play_losingmessage">You have lost at round %1s, you win %1s$.</string>
     <string name="play_losingback">Back to menu</string>
     <string name="play_losingplayagain">Play again</string>
+    <string name="play_winningtitle">End of game</string>
+    <string name="play_winningmessage">You have won the game, so yo earn the million of $.</string>
+    <string name="play_winningback">Back to menu</string>
+    <string name="play_winningplayagain">Play again</string>
     <string name="play_call_hint">Your friend has said option %1s</string>
     <string name="play_audience_hint">The audience has said option %1s</string>
     <string name="play_menu_call_title">Call</string>

@@ -29,18 +29,29 @@ import extra.SQLhelper;
 public class PlayActivity extends AppCompatActivity {
 
     private int question_number;
+    private int available_hints;
     private int prizes[] = {100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000};
     List<Question> questions;
     Question question;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        question_number = prefs.getInt("question_number", 0);
+        if(savedInstanceState == null){
+            question_number = 0;
+            available_hints = prefs.getInt("hints_quantity_pos", 3);
+        }
+        else{
+            question_number = prefs.getInt("question_number", 0);
+            available_hints = prefs.getInt("hints_quantity_remaining", 3);
+        }
         questions = readQuestionList();
         fill_question();
+        TextView hints = findViewById(R.id.play_hints);
+        hints.setText(Integer.toString(available_hints));
     }
 
     protected void onPause(){
@@ -48,29 +59,53 @@ public class PlayActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("question_number", question_number);
+        editor.putInt("hints_quantity_remaining",available_hints);
         editor.apply();
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.play_menu, menu);
+        if(available_hints == 0){
+            MenuItem it;
+            it = menu.findItem(R.id.play_menu_call);
+            it.setEnabled(false);
+            it = menu.findItem(R.id.play_menu_fifty);
+            it.setEnabled(false);
+            it = menu.findItem(R.id.play_menu_audience);
+            it.setEnabled(false);
+        }
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
+        boolean action = false;
         switch (item.getItemId()){
             case R.id.play_menu_call:
                 Toast.makeText(this,getString(R.string.play_call_hint, question.getPhone()), Toast.LENGTH_LONG).show();
                 change_button(question.getPhone());
-                return true;
+                available_hints--;
+                action = true;
+                break;
             case R.id.play_menu_fifty:
                 disable_buttons(question.getFifty1(), question.getFifty2());
-                return true;
+                available_hints--;
+                action = true;
+                break;
             case R.id.play_menu_audience:
                 Toast.makeText(this,getString(R.string.play_audience_hint, question.getAudience()), Toast.LENGTH_LONG).show();
                 change_button(question.getAudience());
-                return true;
+                available_hints--;
+                action = true;
+                break;
         }
-        return false;
+        if(action) {
+            TextView hints = findViewById(R.id.play_hints);
+            hints.setText(Integer.toString(available_hints));
+        }
+        if(action && available_hints == 0){
+            invalidateOptionsMenu();
+        }
+        return action;
     }
 
     public void play_callback(View view){
@@ -100,7 +135,30 @@ public class PlayActivity extends AppCompatActivity {
         }
         if(right) {
             question_number++;
-            fill_question();
+            if(question_number == 15){//No more questions
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.play_winningtitle);
+                int money = prizes[14];
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                SQLhelper.getInstance(this).putScore(prefs.getString("username", ""),money);
+                builder.setMessage(R.string.play_winningmessage);
+                builder.setNegativeButton(R.string.play_winningback, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        question_number = 0;
+                        PlayActivity.this.finish();
+                    }
+                });
+                builder.setPositiveButton(R.string.play_winningplayagain, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        question_number = 0;
+                        fill_question();
+                    }
+                });
+                builder.create().show();
+            }
+            else fill_question();
         }
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -190,8 +248,9 @@ public class PlayActivity extends AppCompatActivity {
         int question_number = 1;
         List<Question> list = new ArrayList<Question>();
         Question q;
+        XmlPullParser parser;
         try{
-            XmlPullParser parser = getResources().getXml(R.xml.questions);
+            parser = getResources().getXml(R.xml.questions);
             int event = parser.getEventType();
             while(XmlPullParser.END_DOCUMENT != event){
                 switch (event){

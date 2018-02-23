@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -64,7 +66,12 @@ public class SQLhelper extends SQLiteOpenHelper{
         }
         cursor1.close();
         db.close();
-
+        Collections.sort(list, new Comparator<People_score>() {
+            @Override
+            public int compare(People_score o1, People_score o2) {
+                return Integer.parseInt(o2.getScore()) - Integer.parseInt(o1.getScore());
+            }
+        });
         return list;
     }
 }
