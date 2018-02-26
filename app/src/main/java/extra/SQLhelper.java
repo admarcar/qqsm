@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,23 +56,18 @@ public class SQLhelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    public ArrayList<People_score> getScores(){
-        ArrayList<People_score> list = new ArrayList<People_score>();
+    public ArrayList<HighScore> getScores(){
+        ArrayList<HighScore> list = new ArrayList<HighScore>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor1 = db.rawQuery("SELECT name, score FROM score_table", null);
 
         while(cursor1.moveToNext()){
-            People_score ps = new People_score(cursor1.getString(0), cursor1.getString(1));
+            HighScore ps = new HighScore(cursor1.getString(0), cursor1.getString(1),"","");
             list.add(ps);
         }
         cursor1.close();
         db.close();
-        Collections.sort(list, new Comparator<People_score>() {
-            @Override
-            public int compare(People_score o1, People_score o2) {
-                return Integer.parseInt(o2.getScore()) - Integer.parseInt(o1.getScore());
-            }
-        });
+        Collections.sort(list);
         return list;
     }
 }

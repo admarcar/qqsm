@@ -2,6 +2,7 @@ package com.example.admarcar.qqsm;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,16 @@ import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import extra.Question;
 import extra.SQLhelper;
@@ -50,8 +56,6 @@ public class PlayActivity extends AppCompatActivity {
         }
         questions = readQuestionList();
         fill_question();
-        TextView hints = findViewById(R.id.play_hints);
-        hints.setText(Integer.toString(available_hints));
     }
 
     protected void onPause(){
@@ -139,7 +143,8 @@ public class PlayActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.play_winningtitle);
                 int money = prizes[14];
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                put_score(money);
+                final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 SQLhelper.getInstance(this).putScore(prefs.getString("username", ""),money);
                 builder.setMessage(R.string.play_winningmessage);
                 builder.setNegativeButton(R.string.play_winningback, new DialogInterface.OnClickListener() {
@@ -153,7 +158,9 @@ public class PlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         question_number = 0;
+                        available_hints = prefs.getInt("hints_quantity_pos", 3);
                         fill_question();
+                        invalidateOptionsMenu();
                     }
                 });
                 builder.create().show();
@@ -166,7 +173,8 @@ public class PlayActivity extends AppCompatActivity {
             int money = 0;
             if(question_number <= 10 && question_number > 4) money = prizes[4];
             else if(question_number <= 15 && question_number > 10) money = prizes[9];
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            put_score(money);
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             SQLhelper.getInstance(this).putScore(prefs.getString("username", ""),money);
             builder.setMessage(getString(R.string.play_losingmessage, Integer.toString(question_number+1), Integer.toString(money)));
             builder.setNegativeButton(R.string.play_losingback, new DialogInterface.OnClickListener() {
@@ -180,7 +188,9 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     question_number = 0;
+                    available_hints = prefs.getInt("hints_quantity_pos", 3);
                     fill_question();
+                    invalidateOptionsMenu();
                 }
             });
             builder.create().show();
@@ -211,6 +221,8 @@ public class PlayActivity extends AppCompatActivity {
         button4.setEnabled(true);
         //button4.setBackgroundColor(0);
         question = questions.get(question_number);
+        TextView hints = findViewById(R.id.play_hints);
+        hints.setText(Integer.toString(available_hints));
     }
 
     public void change_button(String b){
@@ -514,5 +526,41 @@ public class PlayActivity extends AppCompatActivity {
         list.add(q);
 
         return list;
+    }
+
+    void put_score(int money){
+        final Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https");
+        builder.authority("wwtbamandroid.appspot.com");
+        builder.appendPath("rest");
+        builder.appendPath("highscores");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String my_name = prefs.getString("username","");
+        if(my_name.equals("")) return;
+        final String body = "name="+my_name + "&" + "score="+money;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    URL url = new URL(builder.build().toString());
+                    HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                    connection.setRequestMethod("PUT");
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
+                    OutputStreamWriter output = new OutputStreamWriter(connection.getOutputStream());
+                    output.write(body);
+                    output.flush();
+                    output.close();
+
+                    BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    input.close();
+
+                    connection.disconnect();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

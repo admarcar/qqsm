@@ -15,13 +15,13 @@ import java.util.ArrayList;
  * Created by Adrian on 18/02/2018.
  */
 
-public class Adaptador extends ArrayAdapter<People_score> {
+public class Adaptador extends ArrayAdapter<HighScore> {
 
     Context context;
     int resource;
-    ArrayList<People_score> data;
+    ArrayList<HighScore> data;
 
-    public Adaptador(Context context, int resource, ArrayList<People_score> data){
+    public Adaptador(Context context, int resource, ArrayList<HighScore> data){
         super(context, resource, data);
         this.context = context;
         this.resource = resource;
@@ -34,11 +34,11 @@ public class Adaptador extends ArrayAdapter<People_score> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.scores_list, null);
         }
-        People_score d = data.get(posicion);
+        HighScore d = data.get(posicion);
         TextView tv1 = (TextView) view.findViewById(R.id.textName);
         tv1.setText(d.getName());
         TextView tv2 = (TextView) view.findViewById(R.id.textScore);
-        tv2.setText(d.getScore());
+        tv2.setText(d.getScoring());
         return view;
     }
 }
