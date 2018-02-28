@@ -34,6 +34,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <ProgressBar
+                        android:id="@+id/scores_progress_bar_local"
+                        android:visibility="visible"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         xmlns:tools="http://schemas.android.com/tools"
@@ -51,6 +58,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/scores_progress_bar_friends"
+                        android:visibility="visible"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"

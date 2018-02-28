@@ -50,6 +50,12 @@ public class SQLhelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void removeScore(String name, String score){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("score_table", "name=? and score=?", new String[]{name,score});
+        db.close();
+    }
+
     public void removeScores(){
         SQLiteDatabase db = getWritableDatabase();
         db.delete("score_table", null, null);

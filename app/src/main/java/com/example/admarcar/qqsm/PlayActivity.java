@@ -46,14 +46,8 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(savedInstanceState == null){
-            question_number = 0;
-            available_hints = prefs.getInt("hints_quantity_pos", 3);
-        }
-        else{
-            question_number = prefs.getInt("question_number", 0);
-            available_hints = prefs.getInt("hints_quantity_remaining", 3);
-        }
+        question_number = prefs.getInt("question_number", 0);
+        available_hints = prefs.getInt("hints_quantity_remaining", 3);
         questions = readQuestionList();
         fill_question();
     }
@@ -145,7 +139,6 @@ public class PlayActivity extends AppCompatActivity {
                 int money = prizes[14];
                 put_score(money);
                 final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                SQLhelper.getInstance(this).putScore(prefs.getString("username", ""),money);
                 builder.setMessage(R.string.play_winningmessage);
                 builder.setNegativeButton(R.string.play_winningback, new DialogInterface.OnClickListener() {
                     @Override
@@ -167,7 +160,7 @@ public class PlayActivity extends AppCompatActivity {
             }
             else fill_question();
         }
-        else{
+        else{//Fallo
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.play_losingtitle);
             int money = 0;
@@ -175,12 +168,12 @@ public class PlayActivity extends AppCompatActivity {
             else if(question_number <= 15 && question_number > 10) money = prizes[9];
             put_score(money);
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            SQLhelper.getInstance(this).putScore(prefs.getString("username", ""),money);
             builder.setMessage(getString(R.string.play_losingmessage, Integer.toString(question_number+1), Integer.toString(money)));
             builder.setNegativeButton(R.string.play_losingback, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     question_number = 0;
+                    available_hints = prefs.getInt("hints_quantity_pos", 3);
                     PlayActivity.this.finish();
                 }
             });
@@ -233,7 +226,6 @@ public class PlayActivity extends AppCompatActivity {
             case "3": button = findViewById(R.id.play_option3); break;
             case "4": button = findViewById(R.id.play_option4); break;
         }
-        //button.setBackgroundColor(23);
     }
 
     public void disable_buttons(String b1, String b2){
@@ -528,14 +520,22 @@ public class PlayActivity extends AppCompatActivity {
         return list;
     }
 
-    void put_score(int money){
+    void put_score(final int money){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String my_name = prefs.getString("username","");
+        //Lo almacenamos en la BD
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SQLhelper.getInstance(PlayActivity.this).putScore(my_name,money);
+            }
+        }).start();
+        //Lo subimos al servidor
         final Uri.Builder builder = new Uri.Builder();
         builder.scheme("https");
         builder.authority("wwtbamandroid.appspot.com");
         builder.appendPath("rest");
         builder.appendPath("highscores");
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String my_name = prefs.getString("username","");
         if(my_name.equals("")) return;
         final String body = "name="+my_name + "&" + "score="+money;
         new Thread(new Runnable() {

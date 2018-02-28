@@ -27,6 +27,10 @@
     <string name="play_menu_audience_title">Audience</string>
 
     <string name="scores_header">Scores</string>
+    <string name="scores_local_one_remove">The score of %s$ from %s is going to be removed</string>
+    <string name="scores_local_one_remove_header">Remove one scoring</string>
+    <string name="scores_local_one_remove_no">No</string>
+    <string name="scores_local_one_remove_yes">Yes</string>
 
     <string name="settings_header">Settings</string>
     <string name="settings_name">Name:</string>

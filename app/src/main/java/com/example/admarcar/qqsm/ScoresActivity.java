@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 
 import com.google.gson.Gson;
@@ -55,11 +58,42 @@ public class ScoresActivity extends AppCompatActivity {
         spec.setContent(R.id.tab2);
         host.addTab(spec);
 
-        //LocalList = getLocalScores();
-        LocalList = SQLhelper.getInstance(this).getScores();
+        LocalList = new ArrayList<HighScore>();
+        getLocalScores();
         LocalAdaptador = new Adaptador(this, R.layout.scores_list, LocalList);
         ListView listView = findViewById(R.id.score_listview_local);
         listView.setAdapter(LocalAdaptador);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(ScoresActivity.this);
+                alert.setMessage(getString(R.string.scores_local_one_remove,LocalList.get(position).getScoring(),LocalList.get(position).getName()));
+                alert.setTitle(R.string.scores_local_one_remove_header);
+                alert.setNegativeButton(R.string.scores_local_one_remove_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Nada
+                    }
+                });
+                alert.setPositiveButton(R.string.scores_local_one_remove_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String name = LocalList.get(position).getName();
+                        final String score = LocalList.get(position).getScoring();
+                        LocalList.remove(position);
+                        LocalAdaptador.notifyDataSetChanged();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SQLhelper.getInstance(ScoresActivity.this).removeScore(name, score);
+                            }
+                        }).start();
+                    }
+                });
+                alert.create().show();
+                return true;
+            }
+        });
 
         FriendList = new ArrayList<HighScore>();
         getFriendScores();
@@ -97,10 +131,14 @@ public class ScoresActivity extends AppCompatActivity {
     public void getFriendScores() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ScoresActivity.this);
         String my_name = prefs.getString("username", "");
-        new AsyncTaskGetScores().execute(my_name);
+        new AsyncTaskGetFriendsScores().execute(my_name);
     }
 
-    private class AsyncTaskGetScores extends AsyncTask<String, Void, List<HighScore>> {
+    void getLocalScores(){
+        new AsyncTaskGetLocalScores().execute();
+    }
+
+    private class AsyncTaskGetFriendsScores extends AsyncTask<String, Void, List<HighScore>> {
         @Override
         protected List<HighScore> doInBackground(String... strings) {
             String my_name = strings[0];
@@ -130,15 +168,35 @@ public class ScoresActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            Collections.sort(list);
             return list;
         }
 
         @Override
         protected void onPostExecute(List<HighScore> highScores) {
+            ProgressBar pb = findViewById(R.id.scores_progress_bar_friends);
+            pb.setVisibility(View.GONE);
             super.onPostExecute(highScores);
             FriendList.addAll(highScores);
-            Collections.sort(FriendList);
             FriendsAdaptador.notifyDataSetChanged();
+        }
+    }
+
+    private class AsyncTaskGetLocalScores extends AsyncTask<Void, Void, List<HighScore>>{
+
+        @Override
+        protected List<HighScore> doInBackground(Void... voids) {
+            List<HighScore> list = SQLhelper.getInstance(ScoresActivity.this).getScores();
+            Collections.sort(list);
+            return list;
+        }
+
+        protected void onPostExecute(List<HighScore> highScores) {
+            ProgressBar pb = findViewById(R.id.scores_progress_bar_local);
+            pb.setVisibility(View.GONE);
+            super.onPostExecute(highScores);
+            LocalList.addAll(highScores);
+            LocalAdaptador.notifyDataSetChanged();
         }
     }
 }
