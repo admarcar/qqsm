@@ -16,4 +16,10 @@
         android:title="@string/play_menu_audience_title"
         android:icon="@android:drawable/ic_menu_help"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/play_menu_surrender"
+        android:title="@string/play_menu_surrender_title"
+        android:icon="@android:drawable/ic_delete"
+        app:showAsAction="always"
+        />
 </menu>

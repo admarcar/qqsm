@@ -69,13 +69,13 @@ public class ScoresActivity extends AppCompatActivity {
                 AlertDialog.Builder alert = new AlertDialog.Builder(ScoresActivity.this);
                 alert.setMessage(getString(R.string.scores_local_one_remove,LocalList.get(position).getScoring(),LocalList.get(position).getName()));
                 alert.setTitle(R.string.scores_local_one_remove_header);
-                alert.setNegativeButton(R.string.scores_local_one_remove_no, new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Nada
                     }
                 });
-                alert.setPositiveButton(R.string.scores_local_one_remove_yes, new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         final String name = LocalList.get(position).getName();
@@ -112,7 +112,7 @@ public class ScoresActivity extends AppCompatActivity {
             case R.id.score_delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(ScoresActivity.this);
                 builder.setMessage(R.string.scores_message);
-                builder.setPositiveButton(R.string.scores_yes, new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         LocalList.clear();
@@ -121,7 +121,7 @@ public class ScoresActivity extends AppCompatActivity {
 
                     }
                 });
-                builder.setNegativeButton(R.string.scores_no, null);
+                builder.setNegativeButton(R.string.no, null);
                 builder.create().show();
                 return true;
         }

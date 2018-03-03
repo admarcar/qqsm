@@ -39,7 +39,6 @@ public class PlayActivity extends AppCompatActivity {
     private int prizes[] = {100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000};
     List<Question> questions;
     Question question;
-    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,12 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         question_number = prefs.getInt("question_number", 0);
-        available_hints = prefs.getInt("hints_quantity_remaining", 3);
+        if(question_number == 0){//Partida nueva y se ha reducido el numero de ayudas disponible
+            available_hints = prefs.getInt("hints_quantity_pos", 3);
+        }
+        else{//partida empezada, el numero de ayudas se reducira en la proxima
+            available_hints = prefs.getInt("hints_quantity_remaining", 3);
+        }
         questions = readQuestionList();
         fill_question();
     }
@@ -95,6 +99,27 @@ public class PlayActivity extends AppCompatActivity {
                 available_hints--;
                 action = true;
                 break;
+            case R.id.play_menu_surrender:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.play_surrender_title);
+                final int money = get_earn_money();
+                builder.setMessage(getString(R.string.play_surrender_message,Integer.toString(money)));
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        put_score(money);
+                        new_game();
+                        PlayActivity.this.finish();
+                    }
+                });
+                builder.create().show();
+                break;
         }
         if(action) {
             TextView hints = findViewById(R.id.play_hints);
@@ -138,20 +163,18 @@ public class PlayActivity extends AppCompatActivity {
                 builder.setTitle(R.string.play_winningtitle);
                 int money = prizes[14];
                 put_score(money);
-                final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 builder.setMessage(R.string.play_winningmessage);
                 builder.setNegativeButton(R.string.play_winningback, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        question_number = 0;
+                        new_game();
                         PlayActivity.this.finish();
                     }
                 });
                 builder.setPositiveButton(R.string.play_winningplayagain, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        question_number = 0;
-                        available_hints = prefs.getInt("hints_quantity_pos", 3);
+                        new_game();
                         fill_question();
                         invalidateOptionsMenu();
                     }
@@ -163,25 +186,20 @@ public class PlayActivity extends AppCompatActivity {
         else{//Fallo
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.play_losingtitle);
-            int money = 0;
-            if(question_number <= 10 && question_number > 4) money = prizes[4];
-            else if(question_number <= 15 && question_number > 10) money = prizes[9];
+            int money = get_earn_money();
             put_score(money);
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             builder.setMessage(getString(R.string.play_losingmessage, Integer.toString(question_number+1), Integer.toString(money)));
             builder.setNegativeButton(R.string.play_losingback, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    question_number = 0;
-                    available_hints = prefs.getInt("hints_quantity_pos", 3);
+                    new_game();
                     PlayActivity.this.finish();
                 }
             });
             builder.setPositiveButton(R.string.play_losingplayagain, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    question_number = 0;
-                    available_hints = prefs.getInt("hints_quantity_pos", 3);
+                    new_game();
                     fill_question();
                     invalidateOptionsMenu();
                 }
@@ -288,238 +306,6 @@ public class PlayActivity extends AppCompatActivity {
         return list;
     }
 
-    public List<Question> generateQuestionList() {
-        List<Question> list = new ArrayList<Question>();
-        Question q = null;
-
-        q = new Question(
-                "1",
-                "Which is the Sunshine State of the US?",
-                "North Carolina",
-                "Florida",
-                "Texas",
-                "Arizona",
-                "2",
-                "2",
-                "2",
-                "1",
-                "4"
-        );
-        list.add(q);
-
-        q = new Question(
-                "2",
-                "Which of these is not a U.S. state?",
-                "New Hampshire",
-                "Washington",
-                "Wyoming",
-                "Manitoba",
-                "4",
-                "4",
-                "4",
-                "2",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "3",
-                "What is Book 3 in the Pokemon book series?",
-                "Charizard",
-                "Island of the Giant Pokemon",
-                "Attack of the Prehistoric Pokemon",
-                "I Choose You!",
-                "3",
-                "2",
-                "3",
-                "1",
-                "4"
-        );
-        list.add(q);
-
-        q = new Question(
-                "4",
-                "Who was forced to sign the Magna Carta?",
-                "King John",
-                "King Henry VIII",
-                "King Richard the Lion-Hearted",
-                "King George III",
-                "1",
-                "3",
-                "1",
-                "2",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "5",
-                "Which ship was sunk in 1912 on its first voyage, although people said it would never sink?",
-                "Monitor",
-                "Royal Caribean",
-                "Queen Elizabeth",
-                "Titanic",
-                "4",
-                "4",
-                "4",
-                "1",
-                "2"
-        );
-        list.add(q);
-
-        q = new Question(
-                "6",
-                "Who was the third James Bond actor in the MGM films? (Do not include &apos;Casino Royale&apos;.)",
-                "Roger Moore",
-                "Pierce Brosnan",
-                "Timothy Dalton",
-                "Sean Connery",
-                "1",
-                "3",
-                "3",
-                "2",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "7",
-                "Which is the largest toothed whale?",
-                "Humpback Whale",
-                "Blue Whale",
-                "Killer Whale",
-                "Sperm Whale",
-                "4",
-                "2",
-                "2",
-                "2",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "8",
-                "In what year was George Washington born?",
-                "1728",
-                "1732",
-                "1713",
-                "1776",
-                "2",
-                "2",
-                "2",
-                "1",
-                "4"
-        );
-        list.add(q);
-
-        q = new Question(
-                "9",
-                "Which of these rooms is in the second floor of the White House?",
-                "Red Room",
-                "China Room",
-                "State Dining Room",
-                "East Room",
-                "2",
-                "2",
-                "2",
-                "3",
-                "4"
-        );
-        list.add(q);
-
-        q = new Question(
-                "10",
-                "Which Pope began his reign in 963?",
-                "Innocent III",
-                "Leo VIII",
-                "Gregory VII",
-                "Gregory I",
-                "2",
-                "1",
-                "2",
-                "3",
-                "4"
-        );
-        list.add(q);
-
-        q = new Question(
-                "11",
-                "What is the second longest river in South America?",
-                "Parana River",
-                "Xingu River",
-                "Amazon River",
-                "Rio Orinoco",
-                "1",
-                "1",
-                "1",
-                "2",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "12",
-                "What Ford replaced the Model T?",
-                "Model U",
-                "Model A",
-                "Edsel",
-                "Mustang",
-                "2",
-                "4",
-                "4",
-                "1",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "13",
-                "When was the first picture taken?",
-                "1860",
-                "1793",
-                "1912",
-                "1826",
-                "4",
-                "4",
-                "4",
-                "1",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "14",
-                "Where were the first Winter Olympics held?",
-                "St. Moritz, Switzerland",
-                "Stockholm, Sweden",
-                "Oslo, Norway",
-                "Chamonix, France",
-                "4",
-                "1",
-                "4",
-                "2",
-                "3"
-        );
-        list.add(q);
-
-        q = new Question(
-                "15",
-                "Which of these is not the name of a New York tunnel?",
-                "Brooklyn-Battery",
-                "Lincoln",
-                "Queens Midtown",
-                "Manhattan",
-                "4",
-                "4",
-                "4",
-                "1",
-                "3"
-        );
-        list.add(q);
-
-        return list;
-    }
-
     void put_score(final int money){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String my_name = prefs.getString("username","");
@@ -562,5 +348,18 @@ public class PlayActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    int get_earn_money(){
+        int money = 0;
+        if(question_number <= 9 && question_number > 4) money = prizes[4];
+        else if(question_number <= 15 && question_number > 9) money = prizes[9];
+        return money;
+    }
+
+    void new_game(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        question_number = 0;
+        available_hints = prefs.getInt("hints_quantity_pos", 3);
     }
 }

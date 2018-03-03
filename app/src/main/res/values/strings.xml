@@ -20,17 +20,18 @@
     <string name="play_winningmessage">You have won the game, so yo earn the million of $.</string>
     <string name="play_winningback">Back to menu</string>
     <string name="play_winningplayagain">Play again</string>
+    <string name="play_surrender_title">Surrender</string>
+    <string name="play_surrender_message">Are you sure you want to surrender?\nYou will earn %s$</string>
     <string name="play_call_hint">Your friend has said option %1s</string>
     <string name="play_audience_hint">The audience has said option %1s</string>
     <string name="play_menu_call_title">Call</string>
     <string name="play_menu_fifty_title">Fifty</string>
     <string name="play_menu_audience_title">Audience</string>
+    <string name="play_menu_surrender_title">Surrender</string>
 
     <string name="scores_header">Scores</string>
     <string name="scores_local_one_remove">The score of %s$ from %s is going to be removed</string>
     <string name="scores_local_one_remove_header">Remove one scoring</string>
-    <string name="scores_local_one_remove_no">No</string>
-    <string name="scores_local_one_remove_yes">Yes</string>
 
     <string name="settings_header">Settings</string>
     <string name="settings_name">Name:</string>
@@ -49,8 +50,8 @@
     <string name="scores_friends">Friends</string>
     <string name="scores_delete">Delete scores</string>
     <string name="scores_message">Are you sure that you want to delete ALL scores?</string>
-    <string name="scores_yes">Yes</string>
-    <string name="scores_no">No</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 
