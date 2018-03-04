@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="TextView"
+        android:textSize="@dimen/normal_size"
         android:textAlignment="textStart" />
 
     <TextView
@@ -19,5 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="TextView"
+        android:textSize="@dimen/normal_size"
         android:textAlignment="textEnd" />
 </LinearLayout>

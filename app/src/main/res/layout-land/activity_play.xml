@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/normal_size"
             android:text="@string/play_playfor" />
 
         <TextView
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/normal_size"
             android:text="TextView" />
     </LinearLayout>
 
@@ -44,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/normal_size"
             android:text="@string/play_remaining_hints" />
 
         <TextView
@@ -51,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/normal_size"
             android:text="TextView" />
     </LinearLayout>
 
@@ -68,12 +72,14 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_size"
             android:text="@string/play_question" />
 
         <TextView
             android:id="@+id/play_questionnumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_size"
             android:text="TextView" />
     </LinearLayout>
 
@@ -86,7 +92,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="@dimen/title_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
@@ -118,6 +124,7 @@
                 android:layout_weight="1"
                 android:onClick="play_callback"
                 android:background="@drawable/button_style"
+                android:textSize="@dimen/normal_size"
                 android:paddingVertical="5dp"
                 android:text="Button" />
 
@@ -128,6 +135,7 @@
                 android:layout_weight="1"
                 android:onClick="play_callback"
                 android:background="@drawable/button_style"
+                android:textSize="@dimen/normal_size"
                 android:paddingVertical="5dp"
                 android:text="Button" />
 
@@ -146,6 +154,7 @@
                 android:layout_weight="1"
                 android:onClick="play_callback"
                 android:background="@drawable/button_style"
+                android:textSize="@dimen/normal_size"
                 android:paddingVertical="5dp"
                 android:text="Button" />
 
@@ -156,6 +165,7 @@
                 android:layout_weight="1"
                 android:onClick="play_callback"
                 android:background="@drawable/button_style"
+                android:textSize="@dimen/normal_size"
                 android:paddingVertical="5dp"
                 android:text="Button" />
         </LinearLayout>
