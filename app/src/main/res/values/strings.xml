@@ -28,10 +28,15 @@
     <string name="play_menu_fifty_title">Fifty</string>
     <string name="play_menu_audience_title">Audience</string>
     <string name="play_menu_surrender_title">Surrender</string>
+    <string name="play_no_internet_upload">There is no internet connection, your score cannot have been uploaded</string>
+    <string name="play_upload_no_server">Sorry, our server is down, we cannot upload your score</string>
 
     <string name="scores_header">Scores</string>
     <string name="scores_local_one_remove">The score of %s$ from %s is going to be removed</string>
     <string name="scores_local_one_remove_header">Remove one scoring</string>
+    <string name="scores_no_internet_get_friends">There is no internet connection, your friend\'s score cannot have been downloaded</string>
+    <string name="scores_get_friends_no_server">Sorry, our server is down, we cannot fetch your friend\'s score</string>
+    <string name="scores_get_friends_no_name">Sorry, we cannot be able to fetch your friend\'s score because you have no name</string>
 
     <string name="settings_header">Settings</string>
     <string name="settings_name">Name:</string>
@@ -39,6 +44,10 @@
     <string name="settings_help">How many times can you ask for help</string>
     <string name="settings_add_friend">Add friend</string>
     <string name="settings_add_friend_hint">Enter your friend\'s mail</string>
+    <string name="settings_no_internet_add_friend">There is no internet connection, your friend cannot be added</string>
+    <string name="settings_no_my_name">You should introduce first your name</string>
+    <string name="settings_no_friends_name">You should introduce first your friend\'s name</string>
+    <string name="settings_add_friend_no_server">Sorry, our server is down, we cannot add your friend</string>
 
     <string name="credits_header">Credits</string>
     <string name="credits_game_name">Who wants to be a millionaire</string>

@@ -3,11 +3,14 @@ package com.example.admarcar.qqsm;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +32,7 @@ import java.util.logging.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import extra.InternetAvailable;
 import extra.Question;
 import extra.SQLhelper;
 
@@ -309,6 +313,7 @@ public class PlayActivity extends AppCompatActivity {
     void put_score(final int money){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String my_name = prefs.getString("username","");
+
         //Lo almacenamos en la BD
         new Thread(new Runnable() {
             @Override
@@ -316,38 +321,50 @@ public class PlayActivity extends AppCompatActivity {
                 SQLhelper.getInstance(PlayActivity.this).putScore(my_name,money);
             }
         }).start();
+
         //Lo subimos al servidor
-        final Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https");
-        builder.authority("wwtbamandroid.appspot.com");
-        builder.appendPath("rest");
-        builder.appendPath("highscores");
-        if(my_name.equals("")) return;
-        final String body = "name="+my_name + "&" + "score="+money;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    URL url = new URL(builder.build().toString());
-                    HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-                    connection.setRequestMethod("PUT");
-                    connection.setDoInput(true);
-                    connection.setDoOutput(true);
-                    OutputStreamWriter output = new OutputStreamWriter(connection.getOutputStream());
-                    output.write(body);
-                    output.flush();
-                    output.close();
-
-                    BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    input.close();
-
-                    connection.disconnect();
+        if(!InternetAvailable.isNetworkAvailable(this)){
+            Toast.makeText(this, R.string.play_no_internet_upload, Toast.LENGTH_LONG).show();
+        }
+        else {
+            final Uri.Builder builder = new Uri.Builder();
+            builder.scheme("https");
+            builder.authority("wwtbamandroid.appspot.com");
+            builder.appendPath("rest");
+            builder.appendPath("highscores");
+            if(my_name.equals("")) return;
+            final String body = "name="+my_name + "&" + "score="+money;
+            final Handler handler = new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    Toast.makeText(PlayActivity.this, R.string.play_upload_no_server, Toast.LENGTH_LONG).show();
                 }
-                catch(Exception e){
-                    e.printStackTrace();
+            };
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        URL url = new URL(builder.build().toString());
+                        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                        connection.setRequestMethod("PUT");
+                        connection.setDoInput(true);
+                        connection.setDoOutput(true);
+                        OutputStreamWriter output = new OutputStreamWriter(connection.getOutputStream());
+                        output.write(body);
+                        output.flush();
+                        output.close();
+
+                        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        input.close();
+
+                        connection.disconnect();
+                    }
+                    catch(Exception e){
+                        handler.sendEmptyMessage(0);
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
     }
 
     int get_earn_money(){
