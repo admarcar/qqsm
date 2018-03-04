@@ -65,7 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
             else{
                 final Uri.Builder builder = new Uri.Builder();
                 builder.scheme("https");
-                builder.authority("wwtbamandroid.appspot.com");
+                builder.authority(getString(R.string.api_url));
                 builder.appendPath("rest");
                 builder.appendPath("friends");
                 final String body = "name="+my_name + "&" + "friend_name="+friend_name;

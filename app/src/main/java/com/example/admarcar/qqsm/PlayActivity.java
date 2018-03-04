@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +44,13 @@ public class PlayActivity extends AppCompatActivity {
     private int question_number;
     private int available_hints;
     private int prizes[] = {100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000};
-    List<Question> questions;
-    Question question;
+    private List<Question> questions;
+    private Question question;
+
+    private int button1_state, button2_state, button3_state, button4_state;
+    private int NORMAL_BUTTON = 0;
+    private int SUGGESTED_BUTTON = 1;
+    private int DISABLE_BUTTON = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +58,38 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         question_number = prefs.getInt("question_number", 0);
-        if(question_number == 0){//Partida nueva y se ha reducido el numero de ayudas disponible
+        questions = readQuestionList();
+        fill_question();
+        button1_state = prefs.getInt("button1",0);
+        button2_state = prefs.getInt("button2",0);
+        button3_state = prefs.getInt("button3",0);
+        button4_state = prefs.getInt("button4",0);
+        if(question_number == 0 && button1_state == 0 && button2_state == 0
+                && button3_state == 0 && button4_state == 0){//Partida nueva y se ha reducido el numero de ayudas disponible
             available_hints = prefs.getInt("hints_quantity_pos", 3);
         }
         else{//partida empezada, el numero de ayudas se reducira en la proxima
             available_hints = prefs.getInt("hints_quantity_remaining", 3);
         }
-        questions = readQuestionList();
-        fill_question();
+        question = questions.get(question_number);
+        TextView hints = findViewById(R.id.play_hints);
+        hints.setText(Integer.toString(available_hints));
+        set_button_state((Button) findViewById(R.id.play_option1), button1_state);
+        set_button_state((Button) findViewById(R.id.play_option2), button2_state);
+        set_button_state((Button) findViewById(R.id.play_option3), button3_state);
+        set_button_state((Button) findViewById(R.id.play_option4), button4_state);
+    }
+
+    private void set_button_state(Button button, int state) {
+        switch (state){
+            case 1:
+                button.getBackground().setColorFilter(getResources().getColor(R.color.SuggestedOption), PorterDuff.Mode.MULTIPLY);
+                break;
+            case 2:
+                button.setEnabled(false);
+                button.getBackground().setColorFilter(getResources().getColor(R.color.ButtonDisable), PorterDuff.Mode.MULTIPLY);
+                break;
+        }
     }
 
     protected void onPause(){
@@ -68,6 +98,11 @@ public class PlayActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("question_number", question_number);
         editor.putInt("hints_quantity_remaining",available_hints);
+        //guardar estado de los botones
+        editor.putInt("button1", button1_state);
+        editor.putInt("button2", button2_state);
+        editor.putInt("button3", button3_state);
+        editor.putInt("button4", button4_state);
         editor.apply();
     }
 
@@ -76,11 +111,11 @@ public class PlayActivity extends AppCompatActivity {
         if(available_hints == 0){
             MenuItem it;
             it = menu.findItem(R.id.play_menu_call);
-            it.setEnabled(false);
+            it.setVisible(false);
             it = menu.findItem(R.id.play_menu_fifty);
-            it.setEnabled(false);
+            it.setVisible(false);
             it = menu.findItem(R.id.play_menu_audience);
-            it.setEnabled(false);
+            it.setVisible(false);
         }
         return true;
     }
@@ -215,66 +250,67 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void fill_question(){
+        question = questions.get(question_number);
         TextView tv_prize = findViewById(R.id.play_money);
         tv_prize.setText(prizes[question_number] + "$");
         TextView tv_question = findViewById(R.id.play_questionnumber);
         tv_question.setText((question_number+1)+"");
         TextView tv_question_title = findViewById(R.id.play_question_title);
-        tv_question_title.setText(questions.get(question_number).getText());
-        TextView button1 = findViewById(R.id.play_option1);
-        button1.setText(questions.get(question_number).getAnswer1());
+        tv_question_title.setText(question.getText());
+
+        Button button1 = findViewById(R.id.play_option1);
+        button1.setText(question.getAnswer1());
         button1.setEnabled(true);
-        button1.getBackground().setColorFilter(null);
-
-        TextView button2 = findViewById(R.id.play_option2);
-        button2.setText(questions.get(question_number).getAnswer2());
+        button1_state = 0;
+        //button1.setBackground(getResources().getDrawable(R.drawable.button_style));
+        button1.getBackground().setColorFilter(Color.parseColor("#2196f3"), PorterDuff.Mode.MULTIPLY);
+        Button button2 = findViewById(R.id.play_option2);
+        button2.setText(question.getAnswer2());
         button2.setEnabled(true);
-        button2.getBackground().setColorFilter(null);
-
-        TextView button3 = findViewById(R.id.play_option3);
-        button3.setText(questions.get(question_number).getAnswer3());
+        button2_state = 0;
+        button2.getBackground().setColorFilter(Color.parseColor("#2196f3"), PorterDuff.Mode.MULTIPLY);
+        Button button3 = findViewById(R.id.play_option3);
+        button3.setText(question.getAnswer3());
         button3.setEnabled(true);
-        button3.getBackground().setColorFilter(null);
-
-        TextView button4 = findViewById(R.id.play_option4);
-        button4.setText(questions.get(question_number).getAnswer4());
+        button3_state = 0;
+        button3.getBackground().setColorFilter(Color.parseColor("#2196f3"), PorterDuff.Mode.MULTIPLY);
+        Button button4 = findViewById(R.id.play_option4);
+        button4.setText(question.getAnswer4());
         button4.setEnabled(true);
-        button4.getBackground().setColorFilter(null);
-
-        question = questions.get(question_number);
-        TextView hints = findViewById(R.id.play_hints);
-        hints.setText(Integer.toString(available_hints));
+        button4_state = 0;
+        button4.getBackground().setColorFilter(Color.parseColor("#2196f3"), PorterDuff.Mode.MULTIPLY);
     }
 
     public void change_button(String b){
         TextView button = null;
         switch (b){
-            case "1": button = findViewById(R.id.play_option1); break;
-            case "2": button = findViewById(R.id.play_option2); break;
-            case "3": button = findViewById(R.id.play_option3); break;
-            case "4": button = findViewById(R.id.play_option4); break;
+            case "1": button1_state = 1; button = findViewById(R.id.play_option1); break;
+            case "2": button2_state = 1; button = findViewById(R.id.play_option2); break;
+            case "3": button3_state = 1; button = findViewById(R.id.play_option3); break;
+            case "4": button4_state = 1; button = findViewById(R.id.play_option4); break;
         }
+        button.getBackground().setColorFilter(getResources().getColor(R.color.SuggestedOption), PorterDuff.Mode.MULTIPLY);
     }
 
     public void disable_buttons(String b1, String b2){
         TextView button1 = null;
         switch (b1){
-            case "1": button1 = findViewById(R.id.play_option1); break;
-            case "2": button1 = findViewById(R.id.play_option2); break;
-            case "3": button1 = findViewById(R.id.play_option3); break;
-            case "4": button1 = findViewById(R.id.play_option4); break;
+            case "1": button1_state = 2; button1 = findViewById(R.id.play_option1); break;
+            case "2": button2_state = 2; button1 = findViewById(R.id.play_option2); break;
+            case "3": button3_state = 2; button1 = findViewById(R.id.play_option3); break;
+            case "4": button4_state = 2; button1 = findViewById(R.id.play_option4); break;
         }
         TextView button2 = null;
         switch (b2){
-            case "1": button2 = findViewById(R.id.play_option1); break;
-            case "2": button2 = findViewById(R.id.play_option2); break;
-            case "3": button2 = findViewById(R.id.play_option3); break;
-            case "4": button2 = findViewById(R.id.play_option4); break;
+            case "1": button1_state = 2; button2 = findViewById(R.id.play_option1); break;
+            case "2": button2_state = 2; button2 = findViewById(R.id.play_option2); break;
+            case "3": button3_state = 2; button2 = findViewById(R.id.play_option3); break;
+            case "4": button4_state = 2; button2 = findViewById(R.id.play_option4); break;
         }
         button1.setEnabled(false);
-        button1.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        button1.getBackground().setColorFilter(getResources().getColor(R.color.ButtonDisable), PorterDuff.Mode.MULTIPLY);
         button2.setEnabled(false);
-        button2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        button2.getBackground().setColorFilter(getResources().getColor(R.color.ButtonDisable), PorterDuff.Mode.MULTIPLY);
 
     }
 
@@ -335,10 +371,13 @@ public class PlayActivity extends AppCompatActivity {
         if(!InternetAvailable.isNetworkAvailable(this)){
             Toast.makeText(this, R.string.play_no_internet_upload, Toast.LENGTH_LONG).show();
         }
+        else if(my_name.equals("")){
+            Toast.makeText(this, R.string.play_upload_no_name, Toast.LENGTH_LONG).show();
+        }
         else {
             final Uri.Builder builder = new Uri.Builder();
             builder.scheme("https");
-            builder.authority("wwtbamandroid.appspot.com");
+            builder.authority(getString(R.string.api_url));
             builder.appendPath("rest");
             builder.appendPath("highscores");
             if(my_name.equals("")) return;
@@ -387,5 +426,9 @@ public class PlayActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         question_number = 0;
         available_hints = prefs.getInt("hints_quantity_pos", 3);
+        button1_state = 0;
+        button2_state = 0;
+        button3_state = 0;
+        button4_state = 0;
     }
 }

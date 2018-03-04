@@ -37,11 +37,13 @@ import extra.SQLhelper;
 
 public class ScoresActivity extends AppCompatActivity {
 
-    ArrayList<HighScore> LocalList;
-    ArrayList<HighScore> FriendList;
+    private ArrayList<HighScore> LocalList;
+    private ArrayList<HighScore> FriendList;
 
-    Adaptador LocalAdaptador;
-    Adaptador FriendsAdaptador;
+    private Adaptador LocalAdaptador;
+    private Adaptador FriendsAdaptador;
+
+    private boolean show_reset_option = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,19 @@ public class ScoresActivity extends AppCompatActivity {
         spec.setIndicator(getResources().getString(R.string.scores_friends));
         spec.setContent(R.id.tab2);
         host.addTab(spec);
+
+        host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if(tabId.equals("TAB2")){
+                    show_reset_option = false;
+                }
+                else{
+                    show_reset_option = true;
+                }
+                invalidateOptionsMenu();
+            }
+        });
 
         LocalList = new ArrayList<HighScore>();
         getLocalScores();
@@ -110,12 +125,15 @@ public class ScoresActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.scores_menu, menu);
+        if(!show_reset_option){
+            menu.findItem(R.id.score_menu_delete).setVisible(false);
+        }
         return true;
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.score_delete:
+            case R.id.score_menu_delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(ScoresActivity.this);
                 builder.setMessage(R.string.scores_message);
                 builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -152,7 +170,7 @@ public class ScoresActivity extends AppCompatActivity {
             ArrayList<HighScore> list = new ArrayList<HighScore>();
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("https");
-            builder.authority("wwtbamandroid.appspot.com");
+            builder.authority(getString(R.string.api_url));
             builder.appendPath("rest");
             builder.appendPath("highscores");
             builder.appendQueryParameter("name", my_name);

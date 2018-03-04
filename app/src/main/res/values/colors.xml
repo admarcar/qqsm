@@ -5,6 +5,8 @@
     <color name="colorAccent">#6ca7f5</color>
     <color name="White">#ffffff</color>
     <color name="Black">#000000</color>
-
+    <color name="ThemeBlue">#2196f3</color>
+    <color name="ButtonDisable">#808080</color>
+    <color name="SuggestedOption">#FFA500</color>
 
 </resources>

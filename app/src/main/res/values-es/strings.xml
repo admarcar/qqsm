@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">qqsm</string>
     <string name="main_header">Quien quiere ser millonario</string>
-    <string name="main_welcome">Bienvenido a quien quiere ser millonario</string>
+    <string name="main_welcome">Bienvenido a Quién quiere ser millonario</string>
     <string name="main_play">Jugar</string>
     <string name="main_scores">Puntuaciones</string>
     <string name="main_settings">Ajustes</string>
@@ -60,8 +59,9 @@
     <string name="scores_local">Local</string>
     <string name="scores_friends">Amigos</string>
     <string name="scores_delete">Elimina tus puntuaciones</string>
-    <string name="scores_message">Estás seguro de que quieres eliminar todas las puntuaciones?</string>
+    <string name="scores_message">Estás seguro de que quieres eliminar TODAS las puntuaciones?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="play_upload_no_name">Perdon, no podemos almacenar en la nube tu puntuación ya que tu nombre actual se encuentra en blanco</string>
 
 </resources>

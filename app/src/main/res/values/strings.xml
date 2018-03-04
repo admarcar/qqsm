@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">qqsm</string>
+    <string name="app_name" translatable="false">qqsm</string>
+    <string name="api_url" translatable="false">wwtbamandroid.appspot.com</string>
 
     <string name="main_header">Who wants to be a millionaire</string>
     <string name="main_welcome">Welcome to Who wants to be a millionaire</string>
@@ -30,6 +31,7 @@
     <string name="play_menu_surrender_title">Surrender</string>
     <string name="play_no_internet_upload">There is no internet connection, your score cannot have been uploaded</string>
     <string name="play_upload_no_server">Sorry, our server is down, we cannot upload your score</string>
+    <string name="play_upload_no_name">Sorry, we cannot be able to upload your score because you have no name</string>
 
     <string name="scores_header">Scores</string>
     <string name="scores_local_one_remove">The score of %s$ from %s is going to be removed</string>
@@ -63,8 +65,6 @@
     <string name="scores_message">Are you sure that you want to delete ALL scores?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-
-
 
 
 </resources>

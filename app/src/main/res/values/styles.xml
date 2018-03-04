@@ -8,12 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="SuggestOption" parent="Base.Widget.AppCompat.Button">
-        <item name="colorPrimary">@android:color/holo_orange_light</item>
-    </style>
-
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">#2196f3</item>
+        <item name="colorButtonNormal">@color/ThemeBlue</item>
         <item name="android:textColor">@color/White</item>
     </style>
 </resources>
