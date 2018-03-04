@@ -2,4 +2,5 @@
 <resources>
     <dimen name="title_size">24sp</dimen>
     <dimen name="normal_size">14sp</dimen>
+
 </resources>

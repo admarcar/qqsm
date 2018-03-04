@@ -1,4 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">qqsm</string>
+    <string name="main_header">Quien quiere ser millonario</string>
+    <string name="main_welcome">Bienvenido a quien quiere ser millonario</string>
+    <string name="main_play">Jugar</string>
+    <string name="main_scores">Puntuaciones</string>
+    <string name="main_settings">Ajustes</string>
+    <string name="main_credits">Creditos</string>
+
+    <string name="play_header">Jugar</string>
+    <string name="play_playfor">Jugar por:  </string>
+    <string name="play_remaining_hints">Pistas restantes:  </string>
+    <string name="play_question">Pregunta: </string>
+    <string name="play_losingtitle">Oh! has perdido.</string>
+    <string name="play_losingmessage">Has perdido en la ronda %1s, has ganado %1s$.</string>
+    <string name="play_losingback">Volver al menú</string>
+    <string name="play_losingplayagain">Jugar otra vez</string>
+    <string name="play_winningtitle">Fin del juego</string>
+    <string name="play_winningmessage">Has ganado el juego, asi que has conseguido el millon de $.</string>
+    <string name="play_winningback">Volver al menú</string>
+    <string name="play_winningplayagain">Jugar otra vez</string>
+    <string name="play_surrender_title">Rendirse</string>
+    <string name="play_surrender_message">¿Estás seguro de que quieres rendirte?\ Ganarás %s$</string>
+    <string name="play_call_hint">Tu amigo piensa que la opción correcta es la %1s</string>
+    <string name="play_audience_hint">La audiencia piensa que la opción correcta es la %1s</string>
+    <string name="play_menu_call_title">Llamada</string>
+    <string name="play_menu_fifty_title">Cincuenta</string>
+    <string name="play_menu_audience_title">Audiencia</string>
+    <string name="play_menu_surrender_title">Rendirse</string>
+    <string name="play_no_internet_upload">No hay conexión a internet, tu puntuación no se ha podido actualizar</string>
+    <string name="play_upload_no_server">Perdon, nuestro servidor no está disponible, no podemos actualizar tu puntuación</string>
+
+    <string name="scores_header">Puntuaciones</string>
+    <string name="scores_local_one_remove">La puntuación de %s$ de %s se va a eliminar</string>
+    <string name="scores_local_one_remove_header">Elimina una puntuación</string>
+    <string name="scores_no_internet_get_friends">No hay conexión a internet, la puntuación de tu amigo/s no se ha podido obtener</string>
+    <string name="scores_get_friends_no_server">Perdon, nuestro servidor no está disponible, no podemos obtener la puntuación de tus amigos</string>
+    <string name="scores_get_friends_no_name">Perdon, no podemos obtener la puntuación de tus amigos ya que tu nombre actual se encuentra en blanco</string>
+
+    <string name="settings_header">Ajustes</string>
+    <string name="settings_name">Nombre:</string>
+    <string name="settings_name_hint">Introduce tu nombre</string>
+    <string name="settings_help">Cuantas veces puedes pedir ayuda</string>
+    <string name="settings_add_friend">Añadir un amigo</string>
+    <string name="settings_add_friend_hint">Introduce el email de tu amigo</string>
+    <string name="settings_no_internet_add_friend">No hay conexión a internet, tu amigo no se ha podido añadir</string>
+    <string name="settings_no_my_name">Debes introducir primero tu nombre</string>
+    <string name="settings_no_friends_name">Debes introducir primero el nombre de tu amigo</string>
+    <string name="settings_add_friend_no_server">Perdon, nuestro servidor no está disponible, no podemos añadir a tu amigo</string>
+    <string name="settings_add_friend_correct">Amigo añadido</string>
+
+
+    <string name="credits_header">Creditos</string>
+    <string name="credits_game_name">Quien quiere ser millonario</string>
+    <string name="credits_authors">Autores:</string>
+    <string name="credits_author1">Adrián Munera Sánchez\n(admusan@inf.upv.es)</string>
+    <string name="credits_author2">Adrián Martínez Carreres\n(admarcar@inf.upv.es)</string>
+
+    <string name="scores_local">Local</string>
+    <string name="scores_friends">Amigos</string>
+    <string name="scores_delete">Elimina tus puntuaciones</string>
+    <string name="scores_message">Estás seguro de que quieres eliminar todas las puntuaciones?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+
 </resources>

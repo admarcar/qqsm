@@ -2,6 +2,8 @@ package com.example.admarcar.qqsm;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -222,19 +224,23 @@ public class PlayActivity extends AppCompatActivity {
         TextView button1 = findViewById(R.id.play_option1);
         button1.setText(questions.get(question_number).getAnswer1());
         button1.setEnabled(true);
-        //button1.setBackgroundColor(0);
+        button1.getBackground().setColorFilter(null);
+
         TextView button2 = findViewById(R.id.play_option2);
         button2.setText(questions.get(question_number).getAnswer2());
         button2.setEnabled(true);
-        //button2.setBackgroundColor(0);
+        button2.getBackground().setColorFilter(null);
+
         TextView button3 = findViewById(R.id.play_option3);
         button3.setText(questions.get(question_number).getAnswer3());
         button3.setEnabled(true);
-        //button3.setBackgroundColor(0);
+        button3.getBackground().setColorFilter(null);
+
         TextView button4 = findViewById(R.id.play_option4);
         button4.setText(questions.get(question_number).getAnswer4());
         button4.setEnabled(true);
-        //button4.setBackgroundColor(0);
+        button4.getBackground().setColorFilter(null);
+
         question = questions.get(question_number);
         TextView hints = findViewById(R.id.play_hints);
         hints.setText(Integer.toString(available_hints));
@@ -266,7 +272,10 @@ public class PlayActivity extends AppCompatActivity {
             case "4": button2 = findViewById(R.id.play_option4); break;
         }
         button1.setEnabled(false);
+        button1.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         button2.setEnabled(false);
+        button2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+
     }
 
     public List<Question> readQuestionList(){

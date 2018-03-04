@@ -63,6 +63,7 @@
         android:id="@+id/main_credits_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:drawableLeft="@drawable/credits"
@@ -81,17 +82,18 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:text="@string/main_welcome"
         android:textAlignment="center"
         android:textSize="@dimen/title_size"
         app:layout_constraintBottom_toTopOf="@+id/main_play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -75,6 +75,14 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(SettingsActivity.this, R.string.settings_add_friend_no_server, Toast.LENGTH_LONG).show();
                     }
                 };
+
+                final Handler correct = new Handler() {
+                    public void handleMessage(Message msg){
+                        if(msg.what == 0){
+                            Toast.makeText(SettingsActivity.this, R.string.settings_add_friend_correct, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                };
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -93,6 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
                         input.close();
 
                         connection.disconnect();
+                        correct.sendEmptyMessage(0);
                     }
                     catch(Exception e){
                         handler.sendEmptyMessage(0);

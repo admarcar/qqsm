@@ -83,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="add_friend"
+            android:theme="@style/AppTheme.Button"
             android:text="@string/settings_add_friend"
             android:textSize="@dimen/normal_size" />
 

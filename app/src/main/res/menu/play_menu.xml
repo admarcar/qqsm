@@ -4,22 +4,22 @@
     <item
         android:id="@+id/play_menu_call"
         android:title="@string/play_menu_call_title"
-        android:icon="@android:drawable/stat_sys_phone_call"
+        android:icon="@drawable/ic_action_call"
         app:showAsAction="always" />
     <item
         android:id="@+id/play_menu_fifty"
         android:title="@string/play_menu_fifty_title"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_action_name"
         app:showAsAction="always" />
     <item
         android:id="@+id/play_menu_audience"
         android:title="@string/play_menu_audience_title"
-        android:icon="@android:drawable/ic_menu_help"
+        android:icon="@drawable/action_people"
         app:showAsAction="always" />
     <item
         android:id="@+id/play_menu_surrender"
         android:title="@string/play_menu_surrender_title"
-        android:icon="@android:drawable/ic_delete"
+        android:icon="@drawable/ic_action_exit"
         app:showAsAction="always"
         />
 </menu>

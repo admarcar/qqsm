@@ -48,6 +48,8 @@
     <string name="settings_no_my_name">You should introduce first your name</string>
     <string name="settings_no_friends_name">You should introduce first your friend\'s name</string>
     <string name="settings_add_friend_no_server">Sorry, our server is down, we cannot add your friend</string>
+    <string name="settings_add_friend_correct">Friend added</string>
+
 
     <string name="credits_header">Credits</string>
     <string name="credits_game_name">Who wants to be a millionaire</string>
