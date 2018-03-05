@@ -4,6 +4,6 @@
     <item
         android:id="@+id/score_menu_delete"
         android:title="@string/play_menu_call_title"
-        android:icon="@drawable/reset"
+        android:icon="@drawable/delete"
         app:showAsAction="always" />
 </menu>

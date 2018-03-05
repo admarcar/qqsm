@@ -21,7 +21,9 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+            </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -36,18 +38,15 @@
 
                     <ProgressBar
                         android:id="@+id/scores_progress_bar_local"
-                        android:visibility="visible"
                         style="?android:attr/progressBarStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
-                    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        xmlns:tools="http://schemas.android.com/tools"
+                    <ListView
+                        android:id="@+id/score_listview_local"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:id="@+id/score_listview_local">
+                        android:layout_height="match_parent">
 
                     </ListView>
 
@@ -61,24 +60,25 @@
 
                     <ProgressBar
                         android:id="@+id/scores_progress_bar_friends"
-                        android:visibility="visible"
                         style="?android:attr/progressBarStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
                     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/score_listview_friends"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
 
-                        android:id="@+id/score_listview_friends">
+                        android:layout_height="match_parent">
 
                     </ListView>
                 </LinearLayout>
 
 
             </FrameLayout>
+
         </LinearLayout>
     </TabHost>
 </android.support.constraint.ConstraintLayout>

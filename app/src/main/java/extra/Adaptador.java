@@ -38,7 +38,7 @@ public class Adaptador extends ArrayAdapter<HighScore> {
         TextView tv1 = (TextView) view.findViewById(R.id.textName);
         tv1.setText(d.getName());
         TextView tv2 = (TextView) view.findViewById(R.id.textScore);
-        tv2.setText(d.getScoring() + " $");
+        tv2.setText(d.getScoring() + " " + context.getResources().getString(R.string.currency));
         return view;
     }
 }

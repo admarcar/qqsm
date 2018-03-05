@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/main_play_button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:drawableLeft="@drawable/game"
@@ -27,7 +27,7 @@
     <Button
         android:id="@+id/main_score_button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:drawableLeft="@drawable/scores"
@@ -44,7 +44,7 @@
     <Button
         android:id="@+id/main_settings_button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:drawableLeft="@drawable/settings"
@@ -62,7 +62,7 @@
     <Button
         android:id="@+id/main_credits_button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:drawableLeft="@drawable/credits"

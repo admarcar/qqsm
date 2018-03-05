@@ -159,6 +159,7 @@ public class PlayActivity extends AppCompatActivity {
                         PlayActivity.this.finish();
                     }
                 });
+                builder.setCancelable(false);
                 builder.create().show();
                 break;
         }
@@ -220,6 +221,7 @@ public class PlayActivity extends AppCompatActivity {
                         invalidateOptionsMenu();
                     }
                 });
+                builder.setCancelable(false);
                 builder.create().show();
             }
             else fill_question();
@@ -245,6 +247,7 @@ public class PlayActivity extends AppCompatActivity {
                     invalidateOptionsMenu();
                 }
             });
+            builder.setCancelable(false);
             builder.create().show();
         }
     }
@@ -252,7 +255,7 @@ public class PlayActivity extends AppCompatActivity {
     public void fill_question(){
         question = questions.get(question_number);
         TextView tv_prize = findViewById(R.id.play_money);
-        tv_prize.setText(prizes[question_number] + "$");
+        tv_prize.setText(prizes[question_number] + getResources().getString(R.string.currency));
         TextView tv_question = findViewById(R.id.play_questionnumber);
         tv_question.setText((question_number+1)+"");
         TextView tv_question_title = findViewById(R.id.play_question_title);

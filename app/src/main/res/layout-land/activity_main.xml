@@ -6,93 +6,123 @@
     android:layout_height="match_parent"
     tools:context="com.example.admarcar.qqsm.MainActivity">
 
-    <Button
-        android:id="@+id/main_play_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:drawableLeft="@drawable/game"
-        android:onClick="callback_main"
-        android:paddingHorizontal="60dp"
-        android:text="@string/main_play"
-        android:textSize="@dimen/normal_size"
-        android:theme="@style/AppTheme.Button"
-        app:layout_constraintBottom_toTopOf="@+id/main_score_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/main_score_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:drawableLeft="@drawable/scores"
-        android:onClick="callback_main"
-        android:paddingHorizontal="60dp"
-        android:text="@string/main_scores"
-        android:textSize="@dimen/normal_size"
-        android:theme="@style/AppTheme.Button"
-        app:layout_constraintBottom_toTopOf="@+id/main_settings_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_play_button" />
-
-    <Button
-        android:id="@+id/main_settings_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:drawableLeft="@drawable/settings"
-        android:onClick="callback_main"
-        android:paddingHorizontal="60dp"
-        android:text="@string/main_settings"
-        android:textSize="@dimen/normal_size"
-        android:theme="@style/AppTheme.Button"
-        app:layout_constraintBottom_toTopOf="@+id/main_credits_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_score_button" />
-
-    <Button
-        android:id="@+id/main_credits_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:drawableLeft="@drawable/credits"
-        android:onClick="callback_main"
-        android:paddingHorizontal="60dp"
-        android:text="@string/main_credits"
-        android:textSize="@dimen/normal_size"
-        android:theme="@style/AppTheme.Button"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_settings_button" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/main_play_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="20dp"
+                android:drawableLeft="@drawable/game"
+                android:onClick="callback_main"
+                android:paddingHorizontal="60dp"
+                android:text="@string/main_play"
+                android:textSize="@dimen/normal_size"
+                android:theme="@style/AppTheme.Button"
+                app:layout_constraintBottom_toTopOf="@+id/main_score_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <Button
+                android:id="@+id/main_settings_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:drawableLeft="@drawable/settings"
+                android:onClick="callback_main"
+                android:paddingHorizontal="60dp"
+                android:text="@string/main_settings"
+                android:textSize="@dimen/normal_size"
+                android:theme="@style/AppTheme.Button"
+                app:layout_constraintBottom_toTopOf="@+id/main_credits_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_score_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/main_score_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="20dp"
+                android:drawableLeft="@drawable/scores"
+                android:onClick="callback_main"
+                android:paddingHorizontal="60dp"
+                android:text="@string/main_scores"
+                android:textSize="@dimen/normal_size"
+                android:theme="@style/AppTheme.Button"
+                app:layout_constraintBottom_toTopOf="@+id/main_settings_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_play_button" />
+
+            <Button
+                android:id="@+id/main_credits_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:drawableLeft="@drawable/credits"
+                android:onClick="callback_main"
+                android:paddingHorizontal="60dp"
+                android:text="@string/main_credits"
+                android:textSize="@dimen/normal_size"
+                android:theme="@style/AppTheme.Button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_settings_button" />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/main_welcome"
         android:textAlignment="center"
         android:textSize="@dimen/title_size"
-        app:layout_constraintBottom_toTopOf="@+id/main_play_button"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

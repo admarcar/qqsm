@@ -12,15 +12,15 @@
     <string name="play_remaining_hints">Pistas restantes:  </string>
     <string name="play_question">Pregunta: </string>
     <string name="play_losingtitle">Oh! has perdido.</string>
-    <string name="play_losingmessage">Has perdido en la ronda %1s, has ganado %1s$.</string>
+    <string name="play_losingmessage">Has perdido en la ronda %1s, has ganado %1s€.</string>
     <string name="play_losingback">Volver al menú</string>
     <string name="play_losingplayagain">Jugar otra vez</string>
     <string name="play_winningtitle">Fin del juego</string>
-    <string name="play_winningmessage">Has ganado el juego, asi que has conseguido el millon de $.</string>
+    <string name="play_winningmessage">Has ganado el juego, asi que has conseguido el millon de €.</string>
     <string name="play_winningback">Volver al menú</string>
     <string name="play_winningplayagain">Jugar otra vez</string>
     <string name="play_surrender_title">Rendirse</string>
-    <string name="play_surrender_message">¿Estás seguro de que quieres rendirte?\ Ganarás %s$</string>
+    <string name="play_surrender_message">¿Estás seguro de que quieres rendirte?\ Ganarás %s€</string>
     <string name="play_call_hint">Tu amigo piensa que la opción correcta es la %1s</string>
     <string name="play_audience_hint">La audiencia piensa que la opción correcta es la %1s</string>
     <string name="play_menu_call_title">Llamada</string>
@@ -31,7 +31,7 @@
     <string name="play_upload_no_server">Perdon, nuestro servidor no está disponible, no podemos actualizar tu puntuación</string>
 
     <string name="scores_header">Puntuaciones</string>
-    <string name="scores_local_one_remove">La puntuación de %s$ de %s se va a eliminar</string>
+    <string name="scores_local_one_remove">La puntuación de %s€ de %s se va a eliminar</string>
     <string name="scores_local_one_remove_header">Elimina una puntuación</string>
     <string name="scores_no_internet_get_friends">No hay conexión a internet, la puntuación de tu amigo/s no se ha podido obtener</string>
     <string name="scores_get_friends_no_server">Perdon, nuestro servidor no está disponible, no podemos obtener la puntuación de tus amigos</string>
@@ -62,6 +62,8 @@
     <string name="scores_message">Estás seguro de que quieres eliminar TODAS las puntuaciones?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+
+    <string name="currency">€</string>
     <string name="play_upload_no_name">Perdon, no podemos almacenar en la nube tu puntuación ya que tu nombre actual se encuentra en blanco</string>
 
 </resources>
